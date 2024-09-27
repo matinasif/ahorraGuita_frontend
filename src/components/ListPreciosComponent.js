@@ -11,8 +11,9 @@ const ListPreciosComponent = () => {
             <thead>
                 <th>ID</th>
                 <th>Producto</th>
-                <th>sucursal</th>
                 <th>importe</th>
+                <th>sucursal</th>
+               
             </thead>
             <tbody>
                 {
