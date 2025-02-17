@@ -1,4 +1,4 @@
-import logo from './logo.svg';
+/**import logo from './logo.svg';
 import './App.css';
 import { useState } from 'react';
 
@@ -11,4 +11,26 @@ function App() {
   );
 }
 
+export default App;**/
+
+// src/App.js
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Login from './components/Login';
+import Home from './components/Home';
+import './App.css';
+
+
+function App() {
+  return (
+    <Router>
+    <Routes> {/* Usa <Routes> en lugar de <Switch> */}
+      <Route path="/" element={<Home />} />
+      <Route path="/login" element={<Login />} />
+    </Routes>
+  </Router>
+  );
+}
+
 export default App;
+
