@@ -11,7 +11,7 @@ function App() {
   );
 }
 
-export default App;**/
+export default App;
 
 // src/App.js
 import React from 'react';
@@ -24,7 +24,7 @@ import './App.css';
 function App() {
   return (
     <Router>
-    <Routes> {/* Usa <Routes> en lugar de <Switch> */}
+    <Routes> 
       <Route path="/" element={<Home />} />
       <Route path="/login" element={<Login />} />
     </Routes>
@@ -32,5 +32,26 @@ function App() {
   );
 }
 
-export default App;
+export default App;**/
 
+import React, { useState } from "react";
+import SearchBar from "./components/searchbar";
+import ProductList from "./components/ProductList";
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Login from './components/Login';
+import Home from './components/Home';
+import './App.css';
+function App() {
+  
+  return (
+    <Router>
+    <Routes> 
+      <Route path="/" element={<Home />} />
+      <Route path="/login" element={<Login />} />
+    </Routes>
+  </Router>
+   
+  );
+}
+
+export default App;
