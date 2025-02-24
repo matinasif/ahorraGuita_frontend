@@ -35,12 +35,11 @@ function App() {
 export default App;**/
 
 import React, { useState } from "react";
-import SearchBar from "./components/searchbar";
-import ProductList from "./components/ProductList";
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Login from './components/Login';
 import Home from './components/Home';
 import './App.css';
+
 function App() {
   
   return (
