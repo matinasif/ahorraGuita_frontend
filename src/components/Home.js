@@ -1,18 +1,18 @@
-import React from 'react';
-import SearchBar from "./searchbar";
-import ProductList from "./ProductList";
+import React, { useState } from "react";
+import SearchBar from "./SearchBarTemp"; // Asegúrate de que la ruta es correcta
+import ProductList from "./ProductList"; // Verifica que existe
 import { Container } from "react-bootstrap";
-import  { useState } from "react";
+
 
 function Home() {
-  const [query, setQuery] = useState("");
+  const [productos, setProductos] = useState([]); // Estado para los resultados
 
   return (
     <Container>
-    <h1 className="text-center mt-4">AhorraGuita</h1>
-    <SearchBar onSearch={setQuery} />
-    <ProductList query={query} />
-  </Container>
+      <h1>Comparador de Precios</h1>
+      <SearchBar onResults={setProductos} /> 
+      <ProductList productos={productos} />
+    </Container>
   );
 }
 

@@ -1,11 +1,20 @@
 import React, { useState } from "react";
 import { Form, Button, Container, Row, Col } from "react-bootstrap";
+import { buscarProductos } from "../services/ProductoService"; // Asegúrate de que la ruta es correcta
 
-function SearchBar({ onSearch }) {
+function SearchBar({ onResults }) {
   const [query, setQuery] = useState("");
 
-  const handleSearch = () => {
-    onSearch(query);
+  const handleSearch = async () => {
+    if (query.trim() !== "") {
+      try {
+        const resultados = await buscarProductos(query);
+        onResults(resultados); // Envía los resultados al padre (Home.js)
+      } catch (error) {
+        console.error("Error en la búsqueda:", error);
+        onResults([]); // Si hay error, limpia los resultados
+      }
+    }
   };
 
   return (

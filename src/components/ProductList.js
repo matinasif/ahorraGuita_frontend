@@ -1,43 +1,30 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import ProductCard from "./ProductCard";
-import { Container, Row, Col, Alert, Spinner } from "react-bootstrap";
-import { buscarPrecios } from "../services/api";
+import { Container, Row, Col, Alert } from "react-bootstrap";
 
-function ProductList({ query }) {
-  const [prices, setPrices] = useState([]);
-  const [loading, setLoading] = useState(false);
+function ProductList({ productos = [] }) {
+  const [listaProductos, setListaProductos] = useState([]);
 
+  // Se ejecuta cada vez que `productos` cambia
   useEffect(() => {
-    const fetchPrices = async () => {
-      if (!query) return;
-
-      setLoading(true);
-      const data = await buscarPrecios(query);
-      setPrices(data);
-      setLoading(false);
-    };
-
-    fetchPrices();
-  }, [query]);
+    // Ordena los productos por precio antes de actualizar el estado
+    const productosOrdenados = [...productos].sort((a, b) => a.precio - b.precio);
+    setListaProductos(productosOrdenados);
+  }, [productos]);
 
   return (
     <Container className="mt-4">
-      {loading ? (
-        <div className="text-center">
-          <Spinner animation="border" variant="primary" />
-          <p>Cargando precios...</p>
-        </div>
-      ) : prices.length > 0 ? (
+      {listaProductos.length > 0 ? (
         <Row>
-          {prices.map((precio) => (
-            <Col md={4} key={precio.precio_id}>
-              <ProductCard product={precio} />
+          {listaProductos.map((producto) => (
+            <Col md={4} key={`${producto.productId}-${producto.nombreSupermercado}`}>
+              <ProductCard product={producto} />
             </Col>
           ))}
         </Row>
       ) : (
         <Alert variant="warning" className="text-center">
-          No hay precios disponibles para este producto
+          No se encontraron productos
         </Alert>
       )}
     </Container>
