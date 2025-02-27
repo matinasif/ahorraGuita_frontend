@@ -3,11 +3,11 @@ import React from 'react';
 
 function Login() {
   return (
-    <div className="container">
+    <div className="container flex-column justify-content-center align-items-center mt-5 pt-5">
       <div className="login-container">
-        <h2>Iniciar Sesión</h2>
+        <h2 class="display-5">Iniciar Sesión</h2>
         <form>
-          <div className="form-group">
+          <div className="form-group mt-5">
             <label htmlFor="email">Correo Electrónico</label>
             <input
               type="email"

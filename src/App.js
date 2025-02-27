@@ -34,17 +34,20 @@ function App() {
 
 export default App;**/
 
-import React, { useState } from "react";
+import React from "react";
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Login from './components/Login';
 import Home from './components/Home';
 import './App.css';
+import NavBar from "./components/NavBar";
 
 function App() {
   
   return (
     <Router>
-    <Routes> 
+      <NavBar /> 
+    <Routes>
+     
       <Route path="/" element={<Home />} />
       <Route path="/login" element={<Login />} />
     </Routes>
