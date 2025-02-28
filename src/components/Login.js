@@ -36,7 +36,7 @@ function Login() {
       setMensaje('✅ Login exitoso. Redirigiendo...');
 
       setTimeout(() => {
-        window.location.href = '/Home';  // Cambiá esto según tu ruta
+        window.location.href = '/';  // Cambiá esto según tu ruta
       }, 2000);
 
     } catch (error) {
@@ -89,7 +89,7 @@ function Login() {
         </form>
 
         <div className="text-center mt-3">
-          <a href="#">¿Olvidaste tu contraseña?</a>
+          <a href="/Registro">¿No tienes cuenta? Registrate</a>
         </div>
       </div>
 

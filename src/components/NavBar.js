@@ -49,18 +49,20 @@ const NavBar = ({ onLogoClick }) => {
             {!token ? (
               // Mostrar "Iniciar Sesión" si NO hay token
               <Nav.Link as={Link} to="/login">
-                <Button variant="light" size="sm">Iniciar Sesión</Button>
+               <Button variant="light" size="sm" className="btn-nav">Iniciar Sesión</Button>
               </Nav.Link>
             ) : (
               // Mostrar "Cerrar Sesión" si HAY token
-              <Button variant="danger" size="sm" onClick={handleLogout}>Cerrar Sesión</Button>
+              <Nav.Link>
+              <Button variant="danger" size="sm" className="btn-nav" onClick={handleLogout}>Cerrar Sesión</Button>
+              </Nav.Link>
             )}
 
             {/* Mostrar "Ingresar un Precio" solo si es ADMIN */}
             {isAdmin && (
               <Nav.Link as={Link} to="/agregar">
-                <Button variant="warning" size="sm">Ingresar un Precio</Button>
-              </Nav.Link>
+              <Button variant="warning" size="sm" className="btn-nav">Ingresar un Producto</Button>
+</Nav.Link>
             )}
           </Nav>
         </Navbar.Collapse>

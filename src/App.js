@@ -41,6 +41,7 @@ import Home from './components/Home';
 import './App.css';
 import NavBar from "./components/NavBar";
 import AgregarProducto from "./components/Agregar";
+import Registro from "./components/Registro";
 
 function App() {
   
@@ -51,6 +52,7 @@ function App() {
       <Route path="/" element={<Home />} />
       <Route path="/login" element={<Login />} />
       <Route path="/agregar" element={<AgregarProducto />} />
+      <Route path="/registro" element={<Registro />} />
     </Routes>
   </Router>
    
