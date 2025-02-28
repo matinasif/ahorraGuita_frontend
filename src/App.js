@@ -40,6 +40,7 @@ import Login from './components/Login';
 import Home from './components/Home';
 import './App.css';
 import NavBar from "./components/NavBar";
+import AgregarProducto from "./components/Agregar";
 
 function App() {
   
@@ -47,9 +48,9 @@ function App() {
     <Router>
       <NavBar /> 
     <Routes>
-     
       <Route path="/" element={<Home />} />
       <Route path="/login" element={<Login />} />
+      <Route path="/agregar" element={<AgregarProducto />} />
     </Routes>
   </Router>
    

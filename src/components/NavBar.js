@@ -7,7 +7,7 @@ const NavBar = ({ onLogoClick }) => {
     <Navbar bg="dark" variant="dark" expand="lg" fixed="top">
       <Container>
         {/* Botón de regreso al inicio y limpiar la búsqueda */}
-        <Navbar.Brand as={Link} to="/" className="display-4 fw-bold" onClick={onLogoClick}>
+        <Navbar.Brand as={Link} to="/" className="lead fw-bold" onClick={onLogoClick}>
           Ahorra Guita
         </Navbar.Brand>
 
@@ -18,7 +18,7 @@ const NavBar = ({ onLogoClick }) => {
             <Nav.Link as={Link} to="/login">
               <Button variant="light" size="sm">Iniciar Sesión</Button>
             </Nav.Link>
-            <Nav.Link as={Link} to="/nuevo-precio">
+            <Nav.Link as={Link} to="/agregar">
               <Button variant="warning" size="sm">Ingresar un Precio</Button>
             </Nav.Link>
           </Nav>
