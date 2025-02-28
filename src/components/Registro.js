@@ -1,27 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState} from 'react';
 import axios from 'axios';
 
 function Registro() {
   const [form, setForm] = useState({
-    email: '',
-    password: '',
-    rol: ''
+    userFirstname: '',
+    userLastname: '',
+    userEmail: '',
+    userPassword: '',
   });
 
-  const [roles, setRoles] = useState([]);
   const [mensaje, setMensaje] = useState('');
-
-  useEffect(() => {
-    // Obtenemos los roles desde la API
-    axios.get('http://localhost:8080/roles')
-      .then(response => {
-        setRoles(response.data);  // Suponiendo que la respuesta tiene un array de roles
-      })
-      .catch(error => {
-        console.error('Error al obtener roles', error);
-        setMensaje('❌ Error al cargar roles. Intenta nuevamente.');
-      });
-  }, []);
 
   const handleChange = (e) => {
     setForm({
@@ -34,8 +22,15 @@ function Registro() {
     e.preventDefault();
     setMensaje(''); // Limpiar mensaje anterior
 
+    // Si querés mandar un rol explícito, podés incluirlo en el form (por ejemplo, rolId o nombreRol)
+    const formConRol = {
+      ...form,
+      rol: 'USER' // 🔐 Esto se ignora  ya lo msi el backendaneja, pero es buena práctica si más adelante lo querés cambiar
+    };
+
+
     try {
-      const response = await axios.post('http://localhost:8080/auth/register', form);
+      const response = await axios.post('http://localhost:8080/auth/nuevoUsuario', form);
       setMensaje('✅ Usuario registrado correctamente. Redirigiendo...');
 
       setTimeout(() => {
@@ -58,53 +53,64 @@ function Registro() {
         </div>}
 
         <form onSubmit={handleSubmit}>
-          <div className="form-group mt-5">
-            <label htmlFor="email">Correo Electrónico (Username)</label>
+
+        <div className="form-group mt-5">
+            <label htmlFor="userFirstname">Nombre</label>
+            <input
+              type="text"
+              className="form-control"
+              id="userFirstname"
+              name="userFirstname"
+              placeholder="Introduce tu nombre"
+              value={form.userFirstname}
+              onChange={handleChange}
+              required
+            />
+          </div>
+
+          <div className="form-group mt-3">
+            <label htmlFor="userLastname">Apellido</label>
+            <input
+              type="text"
+              className="form-control"
+              id="userLastname"
+              name="userLastname"
+              placeholder="Introduce tu apellido"
+              value={form.userLastname}
+              onChange={handleChange}
+              required
+            />
+          </div>
+
+          <div className="form-group mt-3">
+            <label htmlFor="userEmail">Correo Electrónico</label>
             <input
               type="email"
               className="form-control"
-              id="email"
-              name="email"
+              id="userEmail"
+              name="userEmail"
               placeholder="Introduce tu correo"
-              value={form.email}
+              value={form.userEmail}
               onChange={handleChange}
               required
             />
           </div>
 
           <div className="form-group mt-3">
-            <label htmlFor="password">Contraseña</label>
+            <label htmlFor="userPassword">Contraseña</label>
             <input
               type="password"
               className="form-control"
-              id="password"
-              name="password"
+              id="userPassword"
+              name="userPassword"
               placeholder="Introduce tu contraseña"
-              value={form.password}
+              value={form.userPassword}
               onChange={handleChange}
               required
             />
           </div>
 
-          <div className="form-group mt-3">
-            <label htmlFor="rol">Rol</label>
-            <select
-              className="form-control"
-              id="rol"
-              name="rol"
-              value={form.rol}
-              onChange={handleChange}
-              required
-            >
-              <option value="">Selecciona un rol</option>
-              {roles.map((rol) => (
-                <option key={rol.rolId} value={rol.rolId}>
-                  {rol.nombreRol}
-                </option>
-              ))}
-            </select>
-          </div>
-
+          
           <button type="submit" className="btn btn-primary btn-block mt-4">
             Registrarse
           </button>

@@ -8,6 +8,7 @@ function AgregarPrecio({ producto, cerrarModal }) {
   const [supermercadoId, setSupermercadoId] = useState("");
   const [nuevoSupermercado, setNuevoSupermercado] = useState("");
   const [mensaje, setMensaje] = useState("");
+  const [fecha, setFecha] = useState(new Date().toISOString().split('T')[0]);  // Fecha actual por defecto
   const token = localStorage.getItem("token");
 
   // Cargar supermercados desde la API
@@ -37,6 +38,7 @@ function AgregarPrecio({ producto, cerrarModal }) {
         );
 
         finalSupermercadoId = response.data.supermercadoId;
+        console.log("Supermercado creado con ID:", finalSupermercadoId);
       } catch (error) {
         console.error("Error al agregar el supermercado:", error);
         setMensaje("Error al agregar el supermercado.");
@@ -44,11 +46,25 @@ function AgregarPrecio({ producto, cerrarModal }) {
       }
     }
 
+    console.log("Producto a enviar:", producto);
+    console.log("Supermercado ID final:", finalSupermercadoId);
+
+    if (!finalSupermercadoId) {
+      setMensaje("⚠️ Debes seleccionar o crear un supermercado.");
+      return;
+  }
+
+  if (!producto?.productId) {
+      setMensaje("⚠️ No se recibió correctamente el producto.");
+      return;
+  }
+
     // Enviar el precio con el supermercado seleccionado o recién creado
     const nuevoPrecio = {
-      productoId: producto.productoId,
+      productoId: producto.productId,
       precio: parseFloat(precio),
-      supermercadoId: parseInt(finalSupermercadoId)
+      supermercadoId: parseInt(finalSupermercadoId),
+      fecha: fecha  // Agregamos la fecha al payload
     };
 
     try {
@@ -59,8 +75,12 @@ function AgregarPrecio({ producto, cerrarModal }) {
       setMensaje("Precio agregado correctamente.");
       setTimeout(() => cerrarModal(), 1000); // Cierra el modal después de enviar el precio
     } catch (error) {
-      console.error("Error al agregar el precio:", error);
-      setMensaje("Error al agregar el precio.");
+      if (error.response?.status === 409) {
+        setMensaje("⚠️ Ya existe un precio para este producto en ese supermercado.");
+      } else {
+        console.error("Error al agregar el precio:", error);
+        setMensaje("❌ Error al agregar el precio.");
+      }
     }
   };
 
@@ -83,6 +103,17 @@ function AgregarPrecio({ producto, cerrarModal }) {
           placeholder="Ingrese el precio"
           value={precio}
           onChange={(e) => setPrecio(e.target.value)}
+          required
+        />
+      </Form.Group>
+
+      {/* Fecha */}
+      <Form.Group className="mb-3">
+        <Form.Label>Fecha</Form.Label>
+        <Form.Control
+          type="date"
+          value={fecha}
+          onChange={(e) => setFecha(e.target.value)}
           required
         />
       </Form.Group>
